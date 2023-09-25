@@ -190,7 +190,7 @@ defineProps({
 }
 
 .contact_us_6 .container-block.form-wrapper {
-  background-color: #dadbdd;
+  background-color: transparent;
   max-width: 450px;
   text-align: center;
   padding-top: 50px;
@@ -215,7 +215,7 @@ defineProps({
 }
 
 .contact_us_6 .text-blk.contactus-subhead {
-  color: #9c9c9c;
+  color: transparent;
   width: 300px;
   margin-top: 0px;
   margin-right: auto;
@@ -240,7 +240,7 @@ defineProps({
   padding-right: 15px;
   padding-bottom: 1px;
   padding-left: 15px;
-  background-color: #fff;
+  background-color: #addfff;
   border-top-width: 2px;
   border-right-width: 2px;
   border-bottom-width: 2px;
@@ -270,6 +270,7 @@ defineProps({
   padding-bottom: 20px;
   padding-left: 15px;
   border-top-width: 2px;
+  background-color: #addfff;
   border-right-width: 2px;
   border-bottom-width: 2px;
   border-left-width: 2px;
@@ -286,7 +287,6 @@ defineProps({
   border-image-width: initial;
   border-image-outset: initial;
   border-image-repeat: initial;
-  background-color: #fff;
   font-size: 16px;
 }
 
@@ -343,7 +343,7 @@ defineProps({
 }
 
 .contact_us_6 ::placeholder {
-  color: #dadada;
+  color: #000;
 }
 
 .contact_us_6 .mob-text {
@@ -372,7 +372,7 @@ defineProps({
   max-height: 520px;
   width: 100%;
   height: 520px;
-  background-color: #d9d9d9;
+  background-color: transparent;
   background-size: cover;
   background-position-x: 50%;
   background-position-y: 50%;

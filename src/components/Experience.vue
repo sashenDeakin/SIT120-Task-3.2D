@@ -146,7 +146,7 @@ defineProps({
 }
 
 .experience-sub-title {
-  color: rgb(85, 85, 85);
+  color: #ff8a71;
   font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 2rem;
@@ -178,7 +178,7 @@ article .icon {
   cursor: default;
 }
 p {
-  color: rgb(85, 85, 85);
+  color: #ff8a71;
 }
 .title {
   font-size: 3rem;

@@ -85,7 +85,7 @@ defineProps({
 }
 
 p {
-  color: rgb(85, 85, 85);
+  color: #ff8a71;
 }
 .title {
   font-size: 3rem;

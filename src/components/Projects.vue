@@ -1,7 +1,27 @@
 <script setup>
+import { onMounted, ref } from "vue";
+
 defineProps({
   isShow: Boolean,
 });
+
+const projects = ref([]);
+
+const fetchPost = async () => {
+  try {
+    const response = await fetch("../../json/project.json");
+    if (response.ok) {
+      const data = await response.json();
+      projects.value = data;
+    } else {
+      console.error("Failed to fetch JSON data:", response.statusText);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(fetchPost);
 </script>
 
 <template>
@@ -18,84 +38,16 @@ defineProps({
       <li class="list" data-filter="ai">AI</li>
     </ul>
     <div class="portfolio-container">
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://camo.githubusercontent.com/4526dcc3ded0ed06b6274a47f7161b463af0391019dcbd168f809b3052e4f171/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f73636c2f66692f6e33386d36736b70686a716b7476787275686564372f356238356561323134373263353034643565326238323537666165392e706e673f726c6b65793d3035746d3138306e74307166786b333568786b39666973703226646c3d30"
-          class="demo-img"
-        />
+      <a
+        href="images/b-1.jpg"
+        class="portfolio-box app"
+        data-lightbox="work"
+        v-for="(project, index) in projects"
+        :key="index"
+      >
+        <img alt="" :src="project.image" class="demo-img" />
         <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Awesome Github Readme Generator
-        </p>
-        <div class="demo">
-          <button class="ui-button">Demo</button>
-          <button class="ui-button">Source Code</button>
-        </div>
-      </a>
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://cdn.sanity.io/images/5mm9u6u8/production/4d9159a4388e316ecf350db91026683ab5aefb2a-3500x3500.png"
-          class="demo-img"
-        />
-        <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Reddit Clone with REACT.JS
-        </p>
-        <div class="demo">
-          <button class="ui-button">Demo</button>
-          <button class="ui-button">Source Code</button>
-        </div>
-      </a>
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://cdn.sanity.io/images/5mm9u6u8/production/afd4fe25b3afabfe76e95c0a3d112b4d2a24bc6c-768x768.png"
-          class="demo-img"
-        />
-        <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Instagram Clone with React.JS
-        </p>
-        <div class="demo">
-          <button class="ui-button">Demo</button>
-          <button class="ui-button">Source Code</button>
-        </div>
-      </a>
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://cdn.sanity.io/images/5mm9u6u8/production/9e4fc5fa01f8b18f8a005fa544ef8c6cceeb5437-1024x1024.png"
-          class="demo-img"
-        />
-        <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Discord 2.0 with REACT.JS
-        </p>
-        <div class="demo">
-          <button class="ui-button">Demo</button>
-          <button class="ui-button">Source Code</button>
-        </div>
-      </a>
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://cdn.sanity.io/images/5mm9u6u8/production/82badf1c10a2607e2d1d7453740762096f05d576-1600x1200.png"
-          class="demo-img"
-        />
-        <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Airbnb Clone with Next.js 13!
-        </p>
-        <div class="demo">
-          <button class="ui-button">Demo</button>
-          <button class="ui-button">Source Code</button>
-        </div>
-      </a>
-      <a href="images/b-1.jpg" class="portfolio-box app" data-lightbox="work">
-        <img
-          alt=""
-          src="https://camo.githubusercontent.com/79ef84c098dbe8924e95c43a95859ceed636c264b2667726c4b5a98cf3a44fdb/68747470733a2f2f6c68352e67677068742e636f6d2f326c3571793453393359777131435a62457562566f664d62533176764679414d4d476f4747623661774f51587362317264395670777145456f4f364b596c596c414d773d77333030"
-          class="demo-img"
-        />
-        <p style="text-align: center; font-weight: 700; font-size: 20px">
-          Photo Sharing Application with REACT.JS!
+          {{ project.name }}
         </p>
         <div class="demo">
           <button class="ui-button">Demo</button>
@@ -187,6 +139,7 @@ body {
 }
 .portfolio-box {
   width: 330px;
+  height: 330px;
   padding: 15px;
   border: 1px solid #eeeeee;
   margin: 20px;
@@ -194,6 +147,8 @@ body {
   justify-content: center;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+  background: #addfff;
 }
 
 .portfolio-box img {

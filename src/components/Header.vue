@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="navbar">
+  <div class="navbar" style="overflow: hidden">
     <img
       src="https://upload.wikimedia.org/wikipedia/commons/3/33/Cartoon_space_rocket.png"
       class="logo"
@@ -21,6 +21,9 @@
       </li>
       <li>
         <a href="#"><RouterLink to="/contact">CONTACT</RouterLink></a>
+      </li>
+      <li>
+        <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
       </li>
     </ul>
   </div>
@@ -71,7 +74,7 @@ ul li a {
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
-  color: darkslategray;
+  color: #ff8a71;
   margin-top: -3%;
   transition: 0.4s ease;
 }

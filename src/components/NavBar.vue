@@ -25,11 +25,32 @@ import { RouterLink } from "vue-router";
         <li>
           <a href="#"><RouterLink to="/contact">CONTACT</RouterLink></a>
         </li>
+        <li>
+          <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
+        </li>
       </ul>
     </div>
     <div class="info">
-      <h3>Hi, I'm <span>Sashen</span>.</h3>
-      <h1><span>W</span>EB <span>D</span>ESIGNER</h1>
+      <!--  <h3>Hi, I'm <span>Sashen</span>.</h3> -->
+      <div class="waviy">
+        <span style="--i: 1">I'</span>
+        <span style="--i: 2">M</span>
+        <span style="--i: 3">" "</span>
+        <span style="--i: 4">S</span>
+        <span style="--i: 5">A</span>
+        <span style="--i: 6">S</span>
+        <span style="--i: 7">H</span>
+        <span style="--i: 8">E</span>
+        <span style="--i: 9">N</span>
+        <!--   <span style="--i: 10">N</span> -->
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h1 class="animate-charcter">WED DESIGNER</h1>
+          </div>
+        </div>
+      </div>
       <div class="icon-list">
         <a href="https://github.com/SashenJayathilaka"
           ><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
@@ -91,7 +112,6 @@ import { RouterLink } from "vue-router";
 .navbar .logo {
   width: 100px;
   cursor: pointer;
-
   margin-left: -2%;
 }
 
@@ -109,7 +129,7 @@ ul li a {
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
-  color: darkslategray;
+  color: #ff8a71;
   margin-top: -3%;
   transition: 0.4s ease;
 }
@@ -190,5 +210,58 @@ ul li a:hover {
 
 .icons ion-icon:hover {
   color: rgb(59, 174, 209);
+}
+
+.animate-charcter {
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+  font-size: 190px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.waviy {
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+  font-size: 60px;
+}
+.waviy span {
+  font-family: "Alfa Slab One", cursive;
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
+  animation: waviy 1s infinite;
+  animation-delay: calc(0.1s * var(--i));
+}
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
 }
 </style>

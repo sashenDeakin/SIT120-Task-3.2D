@@ -18,7 +18,7 @@ defineProps({
   text-align: center;
   width: 100%;
   height: 200px;
-  background-image: url(http://graphicburger.com/preview/html-templates/outline/images/bg_2.jpg);
+  /*  background-image: url(http://graphicburger.com/preview/html-templates/outline/images/bg_2.jpg); */
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
