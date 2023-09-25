@@ -1,12 +1,12 @@
 <script setup>
-import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
-import Login from "../components/Login.vue";
+import Resume from "../components/Resume.vue";
+import Footer from "../components/Footer.vue";
 </script>
 
 <template>
   <Header />
-  <Login />
+  <Resume />
   <Footer />
 </template>
 

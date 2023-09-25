@@ -26,6 +26,9 @@ import { RouterLink } from "vue-router";
           <a href="#"><RouterLink to="/contact">CONTACT</RouterLink></a>
         </li>
         <li>
+          <a href="#"><RouterLink to="/resume">RESUME</RouterLink></a>
+        </li>
+        <li>
           <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
         </li>
       </ul>
