@@ -13,7 +13,7 @@ import NavBar from "../components/NavBar.vue";
     <AboutMe :is-show="true" />
     <Experience :is-show="true" />
     <Projects :is-show="true" />
-    <!-- <Contact :is-show="true" /> -->
+    <Contact :is-show="true" />
     <Footer />
   </main>
 </template>
