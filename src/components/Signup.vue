@@ -1,23 +1,59 @@
-<script setup></script>
+<script>
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebase/init.js";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+export default {
+  emits: ["loggedIn"],
+  data() {
+    return {
+      userName: "",
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    signup() {
+      createUserWithEmailAndPassword(auth, this.email, this.password).then(
+        () => {
+          updateProfile(auth.currentUser, {
+            displayName: this.userName,
+          }).then(() => {
+            this.$emit("loggedIn");
+          });
+        }
+      );
+      router.push({ path: "/" });
+    },
+  },
+};
+</script>
 
 <template>
   <div class="bg-img">
     <div class="content">
       <header>Signup Now</header>
-      <form action="#">
+      <form action="#" @submit.prevent="signup">
         <div class="field">
           <span class="fa fa-user"></span>
-          <input type="text" required placeholder="Email or Phone" />
+          <input
+            type="text"
+            required
+            placeholder="UserName"
+            v-model="userName"
+          />
         </div>
         <div class="field space">
           <span class="fa fa-lock"></span>
           <input
-            type="password"
+            type="email"
             class="pass-key"
             required
-            placeholder="Password"
+            placeholder="Email"
+            v-model="email"
           />
-          <span class="show">SHOW</span>
         </div>
         <div class="field space" style="margin-bottom: 20px">
           <span class="fa fa-lock"></span>
@@ -25,11 +61,14 @@
             type="password"
             class="pass-key"
             required
+            v-model="password"
             placeholder="Password"
           />
           <span class="show">SHOW</span>
         </div>
-        <div class="field"><input type="submit" value="SIGNUP" /></div>
+        <div class="field">
+          <input type="submit" value="SIGNUP" @submit="signup" />
+        </div>
       </form>
       <div class="login">Or Sign with</div>
       <div class="links">
@@ -50,8 +89,8 @@
 
 <style scoped>
 .content {
-  position: absolute;
-  top: 50%;
+  position: relative;
+  top: 350px;
   left: 50%;
   z-index: 999;
   text-align: center;

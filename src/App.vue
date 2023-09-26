@@ -1,5 +1,24 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from "vue-router";
+import Signup from "./components/Signup.vue";
+import Login from "./components/Login.vue";
+import { auth } from "./firebase/init";
+
+export default {
+  components: { Signup, Login },
+  data() {
+    return {
+      isLoggedIn: false,
+      showLogin: true,
+      displayName: "",
+    };
+  },
+  beforeUpdate() {
+    if (auth.currentUser) {
+      this.displayName = auth.currentUser.displayName;
+    }
+  },
+};
 </script>
 
 <template>

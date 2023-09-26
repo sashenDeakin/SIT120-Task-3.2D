@@ -1,38 +1,10 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import Header from "./Header.vue";
 </script>
 
 <template>
   <div class="main">
-    <div class="navbar">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/3/33/Cartoon_space_rocket.png"
-        class="logo"
-      />
-      <ul>
-        <li>
-          <a href=""><RouterLink to="/">HOME</RouterLink></a>
-        </li>
-        <li>
-          <a href=""><RouterLink to="/about">ABOUT</RouterLink></a>
-        </li>
-        <li>
-          <a href="#"><RouterLink to="/skill">SKILLS</RouterLink></a>
-        </li>
-        <li>
-          <a href="#"><RouterLink to="/work">MY WORKS</RouterLink></a>
-        </li>
-        <li>
-          <a href="#"><RouterLink to="/contact">CONTACT</RouterLink></a>
-        </li>
-        <li>
-          <a href="#"><RouterLink to="/resume">RESUME</RouterLink></a>
-        </li>
-        <li>
-          <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
-        </li>
-      </ul>
-    </div>
+    <Header />
     <div class="info">
       <!--  <h3>Hi, I'm <span>Sashen</span>.</h3> -->
       <div class="waviy">

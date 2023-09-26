@@ -1,4 +1,48 @@
-<script setup></script>
+<script>
+import { RouterLink } from "vue-router";
+
+import Signup from "../components/Signup.vue";
+import Login from "../components/Login.vue";
+import { auth } from "../firebase/init.js";
+import { signOut } from "firebase/auth";
+
+export default {
+  components: { Signup, Login },
+  data() {
+    return {
+      isLoggedIn: false,
+      showLogin: true,
+      displayName: "",
+    };
+  },
+  beforeUpdate() {
+    if (auth.currentUser) {
+      this.displayName = auth.currentUser.displayName;
+    }
+  },
+  methods: {
+    LoginOut() {
+      signOut(auth)
+        .then(() => {
+          this.isLoggedIn = false;
+        })
+        .then(() => {
+          alert("LoginOut Success!");
+        });
+    },
+  },
+};
+</script>
+
+<script setup>
+import { ref } from "vue";
+
+const name = ref("");
+
+if (auth.currentUser) {
+  name.value = auth.currentUser.displayName;
+}
+</script>
 
 <template>
   <div class="navbar" style="overflow: hidden">
@@ -25,8 +69,14 @@
       <li>
         <a href="#"><RouterLink to="/resume">RESUME</RouterLink></a>
       </li>
-      <li>
+      <li @loggedIn="isLoggedIn = true">
+        <a href="#"><RouterLink to="/blog">MY BLOG</RouterLink></a>
+      </li>
+      <li v-if="!name">
         <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
+      </li>
+      <li v-else @click="LoginOut">
+        <a href="#">SIGN OUT</a>
       </li>
     </ul>
   </div>
