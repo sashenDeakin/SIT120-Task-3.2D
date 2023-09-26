@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { auth, db } from "../firebase/init";
 import {
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -41,7 +40,7 @@ const updateBlog = async (updateId) => {
 
     await updateDoc(docRef, {
       blogName: updateBlogName.value,
-      blog: arrayUnion(updateBlogDescription.value),
+      blog: updateBlogDescription.value,
     });
 
     getBlogPost();
