@@ -1,6 +1,6 @@
 <script>
 defineProps({
-  isShow: Boolean,
+  isShow,
 });
 </script>
 
