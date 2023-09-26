@@ -137,7 +137,7 @@ defineProps({
 
 <style scoped>
 #experience {
-  height: 100vh;
+  position: relative;
 }
 
 .icon {
