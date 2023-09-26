@@ -9,7 +9,9 @@ const projects = ref([]);
 
 const fetchPost = async () => {
   try {
-    const response = await fetch("../../json/project.json");
+    const response = await fetch(
+      "https://globalmusicbeats.github.io/skill/project.json"
+    );
     if (response.ok) {
       const data = await response.json();
       projects.value = data;
