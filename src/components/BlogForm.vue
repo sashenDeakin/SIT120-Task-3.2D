@@ -1,22 +1,54 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { auth, db } from "../firebase/init";
+import { collection, addDoc } from "firebase/firestore";
+
+const userName = ref("");
+const blogName = ref("");
+const blogDes = ref("");
+
+const createBlogPost = async (e) => {
+  e.preventDefault();
+
+  try {
+    const colRef = collection(db, "blog");
+
+    const blogObjects = {
+      userName: userName.value,
+      blogName: blogName.value,
+      blog: blogDes.value,
+      time: Date.now(),
+    };
+
+    const dogRef = await addDoc(colRef, blogObjects);
+
+    blogName.value = "";
+    blogDes.value = "";
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+</script>
 
 <template>
-  <div class="subscribe-box">
+  <div class="subscribe-box" v-if="auth.currentUser">
     <h2>Create Blog</h2>
-    <form class="subscribe">
+    <form class="subscribe" v-if="auth.currentUser.photoURL === 'admin'">
       <input
         type="text"
         placeholder="Blog Name"
         autocomplete="off"
         required="required"
+        v-model="blogName"
       />
       <input
         type="text"
         placeholder="Blog Description"
         autocomplete="off"
         required="required"
+        v-model="blogDes"
       />
-      <button type="submit"><span>Submit</span></button>
+      <button @click="createBlogPost">Submit</button>
     </form>
   </div>
 </template>

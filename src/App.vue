@@ -3,9 +3,10 @@ import { RouterLink, RouterView } from "vue-router";
 import Signup from "./components/Signup.vue";
 import Login from "./components/Login.vue";
 import { auth } from "./firebase/init";
+import Footer from "./components/Footer.vue";
 
 export default {
-  components: { Signup, Login },
+  components: { Signup, Login, Footer },
   data() {
     return {
       isLoggedIn: false,

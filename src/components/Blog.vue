@@ -1,34 +1,200 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { auth, db } from "../firebase/init";
+import {
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+
+const blogs = ref([]);
+const isShow = ref(false);
+const updateBlogName = ref("");
+const updateBlogDescription = ref("");
+const currentId = ref("");
+
+const getBlogPost = async () => {
+  const querySnap = await getDocs(query(collection(db, "blog")));
+  blogs.value = querySnap.docs;
+};
+
+getBlogPost();
+
+const deleteBlogs = async (deleteId) => {
+  alert("Delete Doc");
+  await deleteDoc(doc(db, "blog", deleteId));
+  getBlogPost();
+};
+
+const onShow = (currentUpdateId) => {
+  isShow.value = true;
+  currentId.value = currentUpdateId;
+};
+
+const updateBlog = async (updateId) => {
+  try {
+    const docRef = doc(db, "blog", updateId);
+
+    await updateDoc(docRef, {
+      blogName: updateBlogName.value,
+      blog: arrayUnion(updateBlogDescription.value),
+    });
+
+    getBlogPost();
+  } catch (error) {
+    alert(error.message);
+  }
+};
+</script>
 
 <template>
+  <button class="btn_primary" @click="getBlogPost()">Refresh</button>
   <div style="margin: 100px">
-    <div class="blog_post">
-      <div class="img_pod">
-        <img
-          src="https://pbs.twimg.com/profile_images/890901007387025408/oztASP4n.jpg"
-          alt="random image"
-        />
-      </div>
-      <div class="container_copy">
-        <h3>12 January 2019</h3>
-        <h1>CSS Positioning</h1>
-        <p>
-          The position property specifies the type of positioning method used
-          for an element (static, relative, absolute, fixed, or sticky).
-        </p>
-        <a class="btn_primary" href="#" target="_blank">Read More</a>
+    <div class="box">
+      <div class="blog_post" v-for="(item, index) in blogs" :key="index">
+        <div class="container_copy">
+          <h1>{{ item.data().blogName }}</h1>
+          <p>
+            {{ item.data().blog }}
+          </p>
+          <div
+            class="button-contr"
+            v-if="auth.currentUser.photoURL === 'admin'"
+          >
+            <button
+              v-if="item.id !== currentId"
+              class="custom-button update"
+              href="#"
+              target="_blank"
+              @click="onShow(item.id)"
+            >
+              Update
+            </button>
+            <button
+              class="custom-button delete"
+              target="_blank"
+              @click="deleteBlogs(item.id)"
+            >
+              Delete
+            </button>
+          </div>
+          <div v-if="isShow">
+            <div style="margin-top: 20px" v-if="item.id === currentId">
+              <div class="input-group">
+                <label for="inputField1">Blog Name:</label>
+                <input
+                  type="text"
+                  id="inputField1"
+                  name="inputField1"
+                  :placeholder="item.data().blogName"
+                  v-model="updateBlogName"
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="inputField2">Blog Description:</label>
+                <input
+                  type="text"
+                  id="inputField2"
+                  name="inputField2"
+                  :placeholder="item.data().blog"
+                  v-model="updateBlogDescription"
+                />
+              </div>
+              <button href="#" target="_blank" @click="updateBlog(item.id)">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.button-contr {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  align-items: center;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.custom-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.update {
+  background-color: #3498db;
+}
+
+.delete {
+  background-color: #ff5e62;
+}
+
+/* Hover effect */
+.custom-button:hover {
+  background-color: #2980b9;
+}
 .blog_post {
   background: #fff;
   max-width: 500px;
   border-radius: 10px;
   box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
-  position: relative;
 }
 
 .container_copy {
@@ -90,6 +256,7 @@ p {
   box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
   transition: all 0.2s ease-in;
   text-decoration: none;
+  margin-left: 100px;
 }
 
 .btn_primary:hover {

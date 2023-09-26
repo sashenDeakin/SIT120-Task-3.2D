@@ -1,33 +1,35 @@
-<script>
+<script setup>
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/init.js";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
+const userName = ref("");
+const password = ref("");
+const email = ref("");
+const userType = ref("");
 const router = useRouter();
 
-export default {
-  emits: ["loggedIn"],
-  data() {
-    return {
-      userName: "",
-      email: "",
-      password: "",
-    };
-  },
-  methods: {
-    signup() {
-      createUserWithEmailAndPassword(auth, this.email, this.password).then(
-        () => {
-          updateProfile(auth.currentUser, {
-            displayName: this.userName,
-          }).then(() => {
-            this.$emit("loggedIn");
+const signup = () => {
+  try {
+    createUserWithEmailAndPassword(auth, email.value, password.value).then(
+      () => {
+        updateProfile(auth.currentUser, {
+          displayName: userName.value,
+          photoURL: userType.value,
+        })
+          .catch((error) => {
+            console.log(error.message);
+          })
+          .then(() => {
+            alert("SignUp successfully");
+            router.push({ path: "/" });
           });
-        }
-      );
-      router.push({ path: "/" });
-    },
-  },
+      }
+    );
+  } catch (error) {
+    alert(error.message);
+  }
 };
 </script>
 
@@ -66,8 +68,15 @@ export default {
           />
           <span class="show">SHOW</span>
         </div>
+        <div class="space" style="margin-bottom: 20px">
+          <span class="fa fa-lock"></span>
+          <select id="mySelect" v-model="userType">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+        </div>
         <div class="field">
-          <input type="submit" value="SIGNUP" @submit="signup" />
+          <input type="submit" value="SIGNUP" @click="signup()" />
         </div>
       </form>
       <div class="login">Or Sign with</div>
@@ -100,6 +109,18 @@ export default {
   background: rgba(255, 255, 255, 0.04);
   box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
 }
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: none;
+  align-items: center;
+  text-align: center;
+  margin-right: 20px;
+}
+
 .content header {
   color: white;
   font-size: 33px;

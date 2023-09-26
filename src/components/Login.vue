@@ -1,37 +1,30 @@
-<script>
+<script setup>
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/init";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
+const email = ref("");
+const password = ref("");
 const router = useRouter();
 
-function login() {
-  router.push("/");
-}
-
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-  methods: {
-    login() {
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then(() => {
-          this.$emit("loggedIn");
-          alert("Login Successfully");
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    },
-  },
+const login = () => {
+  try {
+    signInWithEmailAndPassword(auth, email.value, password.value)
+      .then(() => {
+        alert("Login Successfully");
+      })
+      .catch((error) => {
+        alert(error.message);
+      })
+      .then(() => {
+        router.push("/");
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 </script>
-
-<script setup></script>
 
 <template>
   <div class="bg-img" style="height: 80vh">
@@ -62,7 +55,7 @@ export default {
           <a href="#">Forgot Password?</a>
         </div>
         <div class="field">
-          <input type="submit" value="LOGIN" @submit="login" />
+          <input type="submit" value="LOGIN" @click="login()" />
         </div>
       </form>
       <div class="login">Or login with</div>

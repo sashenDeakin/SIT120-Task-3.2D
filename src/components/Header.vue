@@ -1,43 +1,26 @@
-<script>
-import { RouterLink } from "vue-router";
-
-import Signup from "../components/Signup.vue";
-import Login from "../components/Login.vue";
+<script setup>
+import { ref } from "vue";
+import { RouterLink, useRouter } from "vue-router";
 import { auth } from "../firebase/init.js";
 import { signOut } from "firebase/auth";
 
-export default {
-  components: { Signup, Login },
-  data() {
-    return {
-      isLoggedIn: false,
-      showLogin: true,
-      displayName: "",
-    };
-  },
-  beforeUpdate() {
-    if (auth.currentUser) {
-      this.displayName = auth.currentUser.displayName;
-    }
-  },
-  methods: {
-    LoginOut() {
-      signOut(auth)
-        .then(() => {
-          this.isLoggedIn = false;
-        })
-        .then(() => {
-          alert("LoginOut Success!");
-        });
-    },
-  },
-};
-</script>
-
-<script setup>
-import { ref } from "vue";
-
 const name = ref("");
+const router = useRouter();
+
+const loggedInOut = () => {
+  try {
+    signOut(auth)
+      .then(() => {
+        name.value = "";
+      })
+      .then(() => {
+        alert("LoginOut Success!");
+        router.push("/login");
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 if (auth.currentUser) {
   name.value = auth.currentUser.displayName;
@@ -69,13 +52,13 @@ if (auth.currentUser) {
       <li>
         <a href="#"><RouterLink to="/resume">RESUME</RouterLink></a>
       </li>
-      <li @loggedIn="isLoggedIn = true">
+      <li>
         <a href="#"><RouterLink to="/blog">MY BLOG</RouterLink></a>
       </li>
       <li v-if="!name">
         <a href="#"><RouterLink to="/login">LOGIN</RouterLink></a>
       </li>
-      <li v-else @click="LoginOut">
+      <li v-else @click="loggedInOut()">
         <a href="#">SIGN OUT</a>
       </li>
     </ul>
