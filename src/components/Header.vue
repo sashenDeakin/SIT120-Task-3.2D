@@ -37,12 +37,12 @@ if (auth.currentUser) {
       <li>
         <a href=""><RouterLink to="/">HOME</RouterLink></a>
       </li>
-      <li>
+      <!--       <li>
         <a href=""><RouterLink to="/about">ABOUT</RouterLink></a>
       </li>
       <li>
         <a href="#"><RouterLink to="/skill">SKILLS</RouterLink></a>
-      </li>
+      </li> -->
       <li>
         <a href="#"><RouterLink to="/work">MY WORKS</RouterLink></a>
       </li>
