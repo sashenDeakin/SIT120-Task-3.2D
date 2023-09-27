@@ -47,6 +47,10 @@ const updateBlog = async (updateId) => {
   } catch (error) {
     alert(error.message);
   }
+
+  updateBlogName.value = "";
+  updateBlogDescription = "";
+  currentId.value = "";
 };
 </script>
 
