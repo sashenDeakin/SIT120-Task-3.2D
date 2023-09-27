@@ -52,7 +52,7 @@ if (auth.currentUser) {
       <li>
         <a href="#"><RouterLink to="/resume">RESUME</RouterLink></a>
       </li>
-      <li>
+      <li v-if="auth.currentUser">
         <a href="#"><RouterLink to="/blog">MY BLOG</RouterLink></a>
       </li>
       <li v-if="!name">
