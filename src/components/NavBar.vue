@@ -10,7 +10,7 @@ import Header from "./Header.vue";
       <div class="waviy">
         <span style="--i: 1">I'</span>
         <span style="--i: 2">M</span>
-        <span style="--i: 3">" "</span>
+        <span style="--i: 3"> </span>
         <span style="--i: 4">S</span>
         <span style="--i: 5">A</span>
         <span style="--i: 6">S</span>
@@ -22,7 +22,7 @@ import Header from "./Header.vue";
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h1 class="animate-charcter">WED DESIGNER</h1>
+            <h1 class="animate-charcter">WEB DESIGNER</h1>
           </div>
         </div>
       </div>
